@@ -1,5 +1,5 @@
 # YouTube Music Downloader
-A simple tool to download YouTube videos as mp3s.
+A simple tool to download YouTube videos or songs as mp3s.
 ## Dependencies
 This program has two dependencies: *pytube* and *moviepy*. 
 
