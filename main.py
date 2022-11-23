@@ -5,6 +5,7 @@ import tkinter as tk
 from tkinter import filedialog
 import shutil
 from tqdm import tqdm
+import time
 
 
 root = tk.Tk()
@@ -33,10 +34,12 @@ while rep:
                         videos.append(p.videos[i].streams.first())
 
                 else:
+                    time.sleep(5)
                     quit()
 
             except Exception as e:
                 print("Failure to download playlist:\n"+str(e))
+                time.sleep(5)
                 quit()
 
         else:
@@ -47,6 +50,7 @@ while rep:
                 video = video.streams.get_highest_resolution()
                 videos.append(video)
             else:
+                time.sleep(5)
                 quit()
 
     else:
@@ -57,6 +61,7 @@ while rep:
             le = len(results)
             if le < 1:
                 print("No results were found. Please try again with a different search.")
+                time.sleep(5)
                 quit()
             else:
                 print('\nFound ' + str(le) + ' results for "' + query + '".')
@@ -75,6 +80,7 @@ while rep:
         except Exception as e:
             print('Invalid input:')
             print(e)
+            time.sleep(5)
             quit()
 
         else:
@@ -85,6 +91,7 @@ while rep:
                 video = video.streams.get_highest_resolution()
                 videos.append(video)
             else:
+                time.sleep(5)
                 quit()
     i = 1
     j = str(i)
@@ -99,6 +106,7 @@ while rep:
             if 'y' in ans:
                 file_path = os.getcwd()+'/'
             else:
+                time.sleep(5)
                 quit()
         print('Selected ' + file_path)
 
@@ -108,6 +116,7 @@ while rep:
         if 'y' in ans:
             file_path = os.getcwd()+'/'
         else:
+            time.sleep(5)
             quit()
 
     if pl:
@@ -130,6 +139,7 @@ while rep:
         except Exception as e:
             print('Failed to download video.')
             print(e)
+            time.sleep(5)
             quit()
 
         else:
