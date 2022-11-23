@@ -4,29 +4,36 @@ from pytube import Search, YouTube, Playlist
 import tkinter as tk
 from tkinter import filedialog
 import shutil
+from tqdm import tqdm
 
 
 root = tk.Tk()
 root.withdraw()
 
-query = input('Enter a URL or Search for a Song. ')
+query = input(
+    'Enter a URL of a video, song, or playlist, or search for a song. ')
 videos = []
 pt = ''
 pl = False
 
 if 'youtube.com' in query:
     if 'list' in query:
-        print("The program has detected a playlist.")
         pl = True
 
         try:
             p = Playlist(query)
             pt = p.title
-            for i in range(len(p.videos)):
-                videos.append(
-                    p.videos[i].streams.first())
+            ans = input('The program has detected a playlist named "' +
+                        pt + '". Do you wish to continue? (y/n) ')
+            if 'y' in ans:
+                for i in tqdm(range(len(p.videos))):
+                    videos.append(p.videos[i].streams.first())
+
+            else:
+                quit()
+
         except Exception as e:
-            print("Failure to download playlist:\n"+e)
+            print("Failure to download playlist:\n"+str(e))
             quit()
 
     else:
@@ -84,10 +91,16 @@ try:
     print('Please select download location.')
     file_path = str(filedialog.askdirectory())
     if file_path == '':
-        file_path = os.getcwd()+'/'
+        ans = input('A download location has not been selected.\n' +
+                    '\nWould you like to proceed with the relative path? Answering no will quit the program. (y/n) ')
+        if 'y' in ans:
+            file_path = os.getcwd()+'/'
+        else:
+            quit()
     print('Selected ' + file_path)
+
 except Exception as e:
-    ans = input('A download location has not been selected.\n'+e +
+    ans = input('A download location has not been selected.\n'+ str(e) +
                 '\nWould you like to proceed with the relative path? Answering no will quit the program. (y/n) ')
     if 'y' in ans:
         file_path = os.getcwd()+'/'
@@ -96,13 +109,19 @@ except Exception as e:
 
 if pl:
     file_path += '/' + pt
-    os.mkdir(file_path)
-
-for v in videos:
     try:
-        video = v
+        os.mkdir(file_path)
+    except Exception as e:
+        if 'FileExistsError' in str(e):
+            for f in os.listdir(file_path):
+                os.remove(os.path.join(file_path, f))
+
+for k in tqdm(range(len(videos))):
+    video = videos[k]
+
+    try:
         t = video.title
-        print('Downloading "' + t + '"')
+        print(' Downloading "' + t + '"')
         video.download(filename='d-'+j+'.mp4')
 
     except Exception as e:
@@ -123,14 +142,18 @@ for v in videos:
             print(r)
 
         else:
-            print('Deleting interim files')
+            print(' Deleting interim files')
             os.remove('d-'+j+'.mp4')
             print('Moving to '+file_path)
             shutil.move(os.getcwd()+'/'+t+'.mp3', file_path+'/'+t+'.mp3')
 
 if pl:
-    ans = input("Would you like to zip this playlist? (y/n) ")
-    if "y" in ans:
-        shutil.make_archive(pt, 'zip', file_path)
+    try:
+        ans = input("Would you like to zip this playlist? (y/n) ")
+        if "y" in ans:
+            shutil.make_archive(file_path, 'zip', file_path+'/..')
+    except Exception as e:
+        print("Failed to zip file.")
+        print(e)
 
 print("Done.")
