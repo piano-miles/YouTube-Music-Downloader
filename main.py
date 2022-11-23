@@ -26,16 +26,6 @@ while rep:
             try:
                 p = Playlist(query)
                 pt = p.title
-                ans = input('The program has detected a playlist named "' +
-                            pt + '". Do you wish to continue? (y/n) ')
-                if 'y' in ans:
-                    print("Adding videos to queue")
-                    for i in tqdm(range(len(p.videos))):
-                        videos.append(p.videos[i].streams.first())
-
-                else:
-                    time.sleep(5)
-                    quit()
 
             except Exception as e:
                 print("Failure to download playlist:\n"+str(e))
@@ -95,6 +85,7 @@ while rep:
                 quit()
     i = 1
     j = str(i)
+
     file_path = ''
 
     try:
@@ -120,13 +111,24 @@ while rep:
             quit()
 
     if pl:
-        file_path += '/' + pt
-        try:
-            os.mkdir(file_path)
-        except Exception as e:
-            if 'FileExistsError' in str(e):
-                for f in os.listdir(file_path):
-                    os.remove(os.path.join(file_path, f))
+        ans = input('The program has detected a playlist named "' +
+                    pt + '". Do you wish to continue? (y/n) ')
+        if 'y' in ans:
+            print("Adding videos to queue")
+            for i in tqdm(range(len(p.videos))):
+                videos.append(p.videos[i].streams.first())
+
+            file_path += '/' + pt
+            try:
+                os.mkdir(file_path)
+            except Exception as e:
+                if 'FileExistsError' in str(e):
+                    for f in os.listdir(file_path):
+                        os.remove(os.path.join(file_path, f))
+
+        else:
+            time.sleep(5)
+            quit()
 
     for k in tqdm(range(len(videos))):
         video = videos[k]
@@ -159,6 +161,8 @@ while rep:
                 os.remove('d-'+j+'.mp4')
                 print('Moving to '+file_path)
                 shutil.move(os.getcwd()+'/'+t+'.mp3', file_path+'/'+t+'.mp3')
+
+        j += 1
 
     if pl:
         try:
