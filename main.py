@@ -82,13 +82,20 @@ file_path = ''
 
 try:
     print('Please select download location.')
-    file_path = filedialog.askdirectory()
+    file_path = str(filedialog.askdirectory())
+    if file_path == '':
+        file_path = os.getcwd()+'/'
     print('Selected ' + file_path)
 except Exception as e:
-    file_path = "./"
+    ans = input('A download location has not been selected.\n'+e +
+                '\nWould you like to proceed with the relative path? Answering no will quit the program. (y/n) ')
+    if 'y' in ans:
+        file_path = os.getcwd()+'/'
+    else:
+        quit()
 
 if pl:
-    file_path += "/" + pt
+    file_path += '/' + pt
     os.mkdir(file_path)
 
 for v in videos:
@@ -119,5 +126,11 @@ for v in videos:
             print('Deleting interim files')
             os.remove('d-'+j+'.mp4')
             print('Moving to '+file_path)
-            shutil.move('./'+t+'.mp3', file_path+'/'+t+'.mp3')
-            print("Done.")
+            shutil.move(os.getcwd()+'/'+t+'.mp3', file_path+'/'+t+'.mp3')
+
+if pl:
+    ans = input("Would you like to zip this playlist? (y/n) ")
+    if "y" in ans:
+        shutil.make_archive(pt, 'zip', file_path)
+
+print("Done.")
