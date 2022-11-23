@@ -101,7 +101,7 @@ try:
     print('Selected ' + file_path)
 
 except Exception as e:
-    ans = input('A download location has not been selected.\n'+ str(e) +
+    ans = input('A download location has not been selected.\n' + str(e) +
                 '\nWould you like to proceed with the relative path? Answering no will quit the program. (y/n) ')
     if 'y' in ans:
         file_path = os.getcwd()+'/'
