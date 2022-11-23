@@ -5,7 +5,7 @@ This program has two non-standard dependencies: *pytube* and *moviepy*.
 
 To install these, run `python3 -m pip install pytube moviepy` in the commandline.
 
-The program also uses the os, tkinter, shutil, and tqdm libraries, all of which should be included in your installation of Python 3 by default.
+The program also uses the os, tkinter, shutil, time, and tqdm libraries, all of which should be included in your installation of Python 3 by default.
 ## Usage
 To search for and download a song, simply:
 1) Run `main.py`,
