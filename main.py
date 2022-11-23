@@ -27,7 +27,6 @@ if 'youtube.com' in query:
                         pt + '". Do you wish to continue? (y/n) ')
             if 'y' in ans:
                 print("Adding videos to queue")
-                pvideos = p.videos
                 for i in tqdm(range(len(p.videos))):
                     videos.append(p.videos[i].streams.first())
 
