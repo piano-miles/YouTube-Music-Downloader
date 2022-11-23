@@ -1,10 +1,9 @@
-import shutil
-from tkinter import filedialog
-import tkinter as tk
-from pytube import Search, YouTube, Playlist
-from moviepy.editor import *
 import os
-print('Importing libraries...')
+from moviepy.editor import *
+from pytube import Search, YouTube, Playlist
+import tkinter as tk
+from tkinter import filedialog
+import shutil
 
 
 root = tk.Tk()
