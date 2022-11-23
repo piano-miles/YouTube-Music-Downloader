@@ -14,7 +14,12 @@ To search for and download a song, simply:
 
 To download a song from a URL, simply:
 1) Run `main.py`,
-2) Paste the URL into the console,
-3) Type '`y`' to confirm the chosen video or song is correct.
+2) Paste the URL into the console, and
+3) Follow the directions to confirm the song and download it.
+
+To download a collection of songs from a YouTube playlist, simply:
+1) Run `main.py`,
+2) Paste the URL into the console, and
+3) Follow the directions to confirm the playlist and download it as a folder or zip archive.
 
 Once the program finishes running, you will find an mp3 file with your song's name in the folder where `main.py` is located.
