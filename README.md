@@ -1,9 +1,11 @@
 # YouTube Music Downloader
 A simple tool to download YouTube videos or songs as mp3s.
 ## Dependencies
-This program has three dependencies: *pytube*, *moviepy*, and *tqdm*. 
+This program has two non-standard dependencies: *pytube* and *moviepy**. 
 
-To install these, run `python3 -m pip install pytube moviepy tqdm` in the commandline.
+To install these, run `python3 -m pip install pytube moviepy` in the commandline.
+
+The program also uses the os, tkinter, shutil, and tqdm libraries, all of which should be included in your installation of Python 3 by default.
 ## Usage
 To search for and download a song, simply:
 1) Run `main.py`,
