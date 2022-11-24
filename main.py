@@ -103,8 +103,8 @@ while rep:
             else:
                 time.sleep(5)
                 quit()
-    i = 1
-    j = str(i)
+    jn = 1
+    j = str(jn)
 
     file_path = ''
 
@@ -159,7 +159,7 @@ while rep:
         try:
             t = video.title
             print(' Downloading "' + t + '"')
-            video.download(filename='d-'+str(j)+'.mp4')
+            video.download(filename='d-'+j+'.mp4')
 
         except Exception as e:
             print('Failed to download video.')
@@ -181,11 +181,12 @@ while rep:
 
             else:
                 print(' Deleting interim files')
-                os.remove('d-'+str(j)+'.mp4')
+                os.remove('d-'+j+'.mp4')
                 print('Moving to '+file_path)
                 shutil.move(os.getcwd()+'/'+t+'.mp3', file_path+'/'+t+'.mp3')
 
-        j += 1
+        jn += 1
+        j = str(jn)
 
     if pl:
         try:
