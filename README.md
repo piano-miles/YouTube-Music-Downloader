@@ -23,3 +23,6 @@ To download a collection of songs from a YouTube playlist, simply:
 3) Follow the directions to confirm the playlist and download it as a folder or zip archive.
 
 Once the program finishes running, you will find an mp3 file with your song's name in the folder where `main.py` is located.
+## Note for MacOS
+This program uses tkinter to prompt the user for a directory. As of this time, tkinter seems to [not work](https://www.python.org/download/mac/tcltk/#built-in-8-6-8) on some machines running MacOS:
+> If you are using macOS 10.6 or later, the Apple-supplied Tcl/Tk 8.5 has serious bugs that can cause application crashes. If you wish to use IDLE or Tkinter, do not use the Apple-supplied Pythons. Instead, install and use a newer version of Python from python.org or a third-party distributor that supplies or links with a newer version of Tcl/Tk.
