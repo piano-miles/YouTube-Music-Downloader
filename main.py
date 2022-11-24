@@ -1,4 +1,5 @@
 import os
+from sys import platform
 from moviepy.editor import *
 from pytube import Search, YouTube, Playlist
 import tkinter as tk
@@ -7,9 +8,28 @@ import shutil
 from tqdm import tqdm
 import time
 
+ta = True
 
-root = tk.Tk()
-root.withdraw()
+if platform == 'linux' or platform == 'linux2':
+    print('Running on Linux')
+elif platform == 'darwin':
+    print('Running on MacOS.')
+    print('Tkinter will be disabled, meaning you will have to manually enter a file path.')
+    ta = False
+elif platform == 'win32':
+    print('Running on Windows')
+
+if ta:
+    try:
+        root = tk.Tk()
+        root.withdraw()
+    except Exception as e:
+        print("\nThere seems to be an issue with Tkinter on your machine.\n")
+        print(e)
+        ta = False
+    else:
+        ta = True
+
 rep = True
 
 while rep:
@@ -90,7 +110,10 @@ while rep:
 
     try:
         print('Please select download location.')
-        file_path = str(filedialog.askdirectory())
+        if ta:
+            file_path = str(filedialog.askdirectory())
+        else:
+            file_path = input('Please manually enter a file path, or leave blank to use the code folder. ')
         if file_path == '':
             ans = input('A download location has not been selected.\n' +
                         '\nWould you like to proceed with the relative path? Answering no will quit the program. (y/n) ')
@@ -136,7 +159,7 @@ while rep:
         try:
             t = video.title
             print(' Downloading "' + t + '"')
-            video.download(filename='d-'+j+'.mp4')
+            video.download(filename='d-'+str(j)+'.mp4')
 
         except Exception as e:
             print('Failed to download video.')
@@ -158,7 +181,7 @@ while rep:
 
             else:
                 print(' Deleting interim files')
-                os.remove('d-'+j+'.mp4')
+                os.remove('d-'+str(j)+'.mp4')
                 print('Moving to '+file_path)
                 shutil.move(os.getcwd()+'/'+t+'.mp3', file_path+'/'+t+'.mp3')
 
