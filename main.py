@@ -11,26 +11,32 @@ import time
 ta = True
 
 if platform == 'linux' or platform == 'linux2':
-    print('Running on Linux')
+    print('Running on Linux.')
 elif platform == 'darwin':
     print('Running on MacOS.')
     print('Tkinter will be disabled, meaning you will have to manually enter a file path.')
     ta = False
 elif platform == 'win32':
-    print('Running on Windows')
+    print('Running on Windows.')
+
+print('Initial working directory: ', os.getcwd())
+os.chdir(os.path.dirname(os.path.abspath(__file__)))
+print('Changed working directory: ', os.getcwd())
 
 if ta:
     try:
         root = tk.Tk()
         root.withdraw()
+        print('Tkinter working')
     except Exception as e:
-        print("\nThere seems to be an issue with Tkinter on your machine.\n")
+        print('There seems to be an issue with Tkinter on your machine.')
         print(e)
         ta = False
     else:
         ta = True
 
 rep = True
+print('\n--------\n')
 
 while rep:
     query = input(
