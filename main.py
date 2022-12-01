@@ -47,7 +47,7 @@ while rep:
     pt = ""
     pl = False
 
-    if "youtube.com" in query:
+    if "youtube.com" in query or "youtu.be" in query:
         if "list" in query:
             pl = True
             try:
