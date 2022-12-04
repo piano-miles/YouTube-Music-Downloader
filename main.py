@@ -59,7 +59,7 @@ while rep:
                 quit()
         else:
             video = YouTube(query)
-            ans = input('Download "' + video.title + '"? (y/n) ')
+            ans = input('Download "' + video.title + '"? (y/n) ').lower()
             if not "n" in ans:
                 video = video.streams.get_highest_resolution()
                 videos.append(video)
@@ -81,7 +81,8 @@ while rep:
                 print("\nFound " + str(le) + ' results for "' + query + '".')
                 for i in range(le):
                     print("Result " + str(i + 1) + ": " + results[i].title)
-                ans = input('Load more results for "' + query + '"? (y/n) ')
+                ans = input('Load more results for "' +
+                            query + '"? (y/n) ').lower()
                 if "y" in ans:
                     s.get_next_results()
                 else:
@@ -98,7 +99,7 @@ while rep:
 
         else:
             video = s.results[ans]
-            ans = input('Download "' + video.title + '"? (y/n) ')
+            ans = input('Download "' + video.title + '"? (y/n) ').lower()
             if not "n" in ans:
                 video = video.streams.get_highest_resolution()
                 videos.append(video)
@@ -122,7 +123,7 @@ while rep:
             ans = input(
                 "A download location has not been selected.\n"
                 + "\nWould you like to proceed with the relative path? Answering no will quit the program. (y/n) "
-            )
+            ).lower()
             if not "n" in ans:
                 file_path = os.getcwd() + "/"
             else:
@@ -135,7 +136,7 @@ while rep:
             "A download location has not been selected.\n"
             + str(e)
             + "\nWould you like to proceed with the relative path? Answering no will quit the program. (y/n) "
-        )
+        ).lower()
         if not "n" in ans:
             file_path = os.getcwd() + "/"
         else:
@@ -147,7 +148,7 @@ while rep:
             'The program has detected a playlist named "'
             + pt
             + '". Do you wish to continue? (y/n) '
-        )
+        ).lower()
 
         if not "n" in ans:
             print("Adding videos to queue")
@@ -206,7 +207,7 @@ while rep:
 
     if pl:
         try:
-            ans = input("Would you like to zip this playlist? (y/n) ")
+            ans = input("Would you like to zip this playlist? (y/n) ").lower()
             if "y" in ans:
                 shutil.make_archive(file_path, "zip", file_path + "/..")
 
@@ -216,7 +217,7 @@ while rep:
 
     print("Done.")
 
-    ans = input("\n\nWould you like to download another file? (y/n) ")
+    ans = input("\n\nWould you like to download another file? (y/n) ").lower()
     if not "y" in ans:
         rep = False
         quit()
