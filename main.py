@@ -8,6 +8,12 @@ import shutil
 from tqdm import tqdm
 import time
 
+
+def Q():
+    time.sleep(5)
+    quit()
+
+
 ta = True
 
 if platform == "linux" or platform == "linux2":
@@ -55,8 +61,8 @@ while rep:
                 pt = p.title
             except Exception as e:
                 print("Failure to download playlist:\n" + str(e))
-                time.sleep(5)
-                quit()
+                Q()
+
         else:
             video = YouTube(query)
             ans = input('Download "' + video.title + '"? (y/n) ').lower()
@@ -64,8 +70,7 @@ while rep:
                 video = video.streams.get_highest_resolution()
                 videos.append(video)
             else:
-                time.sleep(5)
-                quit()
+                Q()
 
     else:
         s = Search(query)
@@ -75,8 +80,8 @@ while rep:
             le = len(results)
             if le < 1:
                 print("No results were found. Please try again with a different search.")
-                time.sleep(5)
-                quit()
+                Q()
+
             else:
                 print("\nFound " + str(le) + ' results for "' + query + '".')
                 for i in range(le):
@@ -94,8 +99,7 @@ while rep:
         except Exception as e:
             print("Invalid input:")
             print(e)
-            time.sleep(5)
-            quit()
+            Q()
 
         else:
             video = s.results[ans]
@@ -104,8 +108,7 @@ while rep:
                 video = video.streams.get_highest_resolution()
                 videos.append(video)
             else:
-                time.sleep(5)
-                quit()
+                Q()
 
     jn = 1
     j = str(jn)
@@ -127,8 +130,8 @@ while rep:
             if not "n" in ans:
                 file_path = os.getcwd() + "/"
             else:
-                time.sleep(5)
-                quit()
+                Q()
+
         print("Selected " + file_path)
 
     except Exception as e:
@@ -140,8 +143,7 @@ while rep:
         if not "n" in ans:
             file_path = os.getcwd() + "/"
         else:
-            time.sleep(5)
-            quit()
+            Q()
 
     if pl:
         ans = input(
@@ -165,8 +167,7 @@ while rep:
                         os.remove(os.path.join(file_path, f))
 
         else:
-            time.sleep(5)
-            quit()
+            Q()
 
     for k in tqdm(range(len(videos))):
         video = videos[k]
@@ -179,8 +180,7 @@ while rep:
         except Exception as e:
             print("Failed to download video.")
             print(e)
-            time.sleep(5)
-            quit()
+            Q()
 
         else:
             try:
