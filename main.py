@@ -20,7 +20,9 @@ if platform == "linux" or platform == "linux2":
     print("Running on Linux.")
 elif platform == "darwin":
     print("Running on MacOS.")
-    print("Tkinter will be disabled, meaning you will have to manually enter a file path.")
+    print(
+        "Tkinter will be disabled, meaning you will have to manually enter a file path."
+    )
     ta = False
 elif platform == "win32":
     print("Running on Windows.")
@@ -45,70 +47,75 @@ if ta:
 
 rep = True
 print("\n--------\n")
+f = open("links.txt", "r")
 
 while rep:
-    query = input(
-        "Enter a URL of a video, song, or playlist, or search for a song. ")
+    queries = f.read().split("\n")
     videos = []
     pt = ""
     pl = False
-
-    if "youtube.com" in query or "youtu.be" in query:
-        if "list" in query:
-            pl = True
-            try:
-                p = Playlist(query)
-                pt = p.title
-            except Exception as e:
-                print("Failure to download playlist:\n" + str(e))
-                Q()
-
-        else:
-            video = YouTube(query)
-            ans = input('Download "' + video.title + '"? (y/n) ').lower()
-            if not "n" in ans:
-                video = video.streams.get_highest_resolution()
-                videos.append(video)
+    for query in queries:
+        if "youtube.com" in query or "youtu.be" in query:
+            if "list" in query:
+                pl = True
+                try:
+                    p = Playlist(query)
+                    pt = p.title
+                except Exception as e:
+                    print("Failure to download playlist:\n" + str(e))
+                    Q()
             else:
-                Q()
-
-    else:
-        s = Search(query)
-        l = True
-        while l:
-            results = s.results
-            le = len(results)
-            if le < 1:
-                print("No results were found. Please try again with a different search.")
-                Q()
-
-            else:
-                print("\nFound " + str(le) + ' results for "' + query + '".')
-                for i in range(le):
-                    print("Result " + str(i + 1) + ": " + results[i].title)
-                ans = input('Load more results for "' +
-                            query + '"? (y/n) ').lower()
-                if "y" in ans:
-                    s.get_next_results()
+                video = YouTube(query)
+                ans = input('Download "' + video.title + '"? (y/n) ').lower()
+                if not "n" in ans:
+                    video = video.streams.get_highest_resolution()
+                    videos.append(video)
                 else:
-                    l = False
-        try:
-            ans = (
-                int(input("Please type the number result you would like to download. ")) - 1)
-
-        except Exception as e:
-            print("Invalid input:")
-            print(e)
-            Q()
+                    Q()
 
         else:
-            video = s.results[ans]
-            ans = input('Download "' + video.title + '"? (y/n) ').lower()
-            if not "n" in ans:
-                video = video.streams.get_highest_resolution()
-                videos.append(video)
-            else:
+            s = Search(query)
+            l = True
+            while l:
+                results = s.results
+                le = len(results)
+                if le < 1:
+                    print(
+                        "No results were found. Please try again with a different search."
+                    )
+                    Q()
+                else:
+                    print("\nFound " + str(le) +
+                          ' results for "' + query + '".')
+                    for i in range(le):
+                        print("Result " + str(i + 1) + ": " + results[i].title)
+                    ans = input('Load more results for "' +
+                                query + '"? (y/n) ').lower()
+                    if "y" in ans:
+                        s.get_next_results()
+                    else:
+                        l = False
+            try:
+                ans = (
+                    int(
+                        input(
+                            "Please type the number result you would like to download. "
+                        )
+                    )
+                    - 1
+                )
+            except Exception as e:
+                print("Invalid input:")
+                print(e)
                 Q()
+            else:
+                video = s.results[ans]
+                ans = input('Download "' + video.title + '"? (y/n) ').lower()
+                if not "n" in ans:
+                    video = video.streams.get_highest_resolution()
+                    videos.append(video)
+                else:
+                    Q()
 
     jn = 1
     j = str(jn)
@@ -120,8 +127,8 @@ while rep:
             file_path = str(filedialog.askdirectory())
         else:
             file_path = input(
-                "Please manually enter a file path, or leave blank to use the code folder. ")
-
+                "Please manually enter a file path, or leave blank to use the code folder. "
+            )
         if file_path == "":
             ans = input(
                 "A download location has not been selected.\n"
@@ -216,7 +223,7 @@ while rep:
             print(e)
 
     print("Done.")
-
+    
     ans = input("\n\nWould you like to download another file? (y/n) ").lower()
     if not "y" in ans:
         rep = False

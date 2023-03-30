@@ -1,5 +1,9 @@
 # YouTube Music Downloader
 A simple tool to download YouTube videos or songs as mp3s.
+
+## LINK-LIST BRANCH
+The link-list branch is a branch to allow for more easy batch downloading of multiple queries. You can make multiple queries by creating a text file called `links.txt`, separating each query by a new line. Queries can be links to videos, music, or playlists, or searches for titles, artists, or albums.
+
 ## Dependencies
 This program has two non-standard dependencies: *pytube* and *moviepy*. 
 
