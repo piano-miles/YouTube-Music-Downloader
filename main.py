@@ -9,8 +9,8 @@ from tqdm import tqdm
 import time
 
 
-def Q():
-    time.sleep(5)
+def Q(a):
+    time.sleep(a)
     quit()
 
 
@@ -61,7 +61,7 @@ while rep:
                 pt = p.title
             except Exception as e:
                 print("Failure to download playlist:\n" + str(e))
-                Q()
+                Q(2)
 
         else:
             video = YouTube(query)
@@ -70,7 +70,7 @@ while rep:
                 video = video.streams.get_highest_resolution()
                 videos.append(video)
             else:
-                Q()
+                Q(0)
 
     else:
         s = Search(query)
@@ -80,7 +80,7 @@ while rep:
             le = len(results)
             if le < 1:
                 print("No results were found. Please try again with a different search.")
-                Q()
+                Q(5)
 
             else:
                 print("\nFound " + str(le) + ' results for "' + query + '".')
@@ -99,7 +99,7 @@ while rep:
         except Exception as e:
             print("Invalid input:")
             print(e)
-            Q()
+            Q(5)
 
         else:
             video = s.results[ans]
@@ -108,7 +108,7 @@ while rep:
                 video = video.streams.get_highest_resolution()
                 videos.append(video)
             else:
-                Q()
+                Q(0)
 
     jn = 1
     j = str(jn)
@@ -130,7 +130,7 @@ while rep:
             if not "n" in ans:
                 file_path = os.getcwd() + "/"
             else:
-                Q()
+                Q(0)
 
         print("Selected " + file_path)
 
@@ -143,7 +143,7 @@ while rep:
         if not "n" in ans:
             file_path = os.getcwd() + "/"
         else:
-            Q()
+            Q(0)
 
     if pl:
         ans = input(
@@ -167,7 +167,7 @@ while rep:
                         os.remove(os.path.join(file_path, f))
 
         else:
-            Q()
+            Q(0)
 
     for k in tqdm(range(len(videos))):
         video = videos[k]
@@ -180,7 +180,7 @@ while rep:
         except Exception as e:
             print("Failed to download video.")
             print(e)
-            Q()
+            Q(2)
 
         else:
             try:
@@ -220,4 +220,4 @@ while rep:
     ans = input("\n\nWould you like to download another file? (y/n) ").lower()
     if not "y" in ans:
         rep = False
-        quit()
+        Q(0)
