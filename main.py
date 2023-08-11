@@ -1,15 +1,22 @@
 import os
-from sys import platform
-from moviepy.editor import *
-from pytube import Search, YouTube, Playlist
+import shutil
+import time
+
 import tkinter as tk
 from tkinter import filedialog
-import shutil
+from sys import platform
 from tqdm import tqdm
-import time
+
+from moviepy.editor import VideoFileClip
+from pytube import Search, YouTube, Playlist
 
 
 def Q(a):
+    """Delays for a certain amount of time, then quits the program.
+
+    Args:
+        a (float): seconds to delay
+    """
     time.sleep(a)
     quit()
 
@@ -20,7 +27,9 @@ if platform == "linux" or platform == "linux2":
     print("Running on Linux.")
 elif platform == "darwin":
     print("Running on MacOS.")
-    print("Tkinter will be disabled, meaning you will have to manually enter a file path.")
+    print(
+        "Tkinter will be disabled, meaning you will have to manually enter a file path."
+    )
     ta = False
 elif platform == "win32":
     print("Running on Windows.")
@@ -47,8 +56,7 @@ rep = True
 print("\n--------\n")
 
 while rep:
-    query = input(
-        "Enter a URL of a video, song, or playlist, or search for a song. ")
+    query = input("Enter a URL of a video, song, or playlist, or search for a song. ")
     videos = []
     pt = ""
     pl = False
@@ -79,22 +87,25 @@ while rep:
             results = s.results
             le = len(results)
             if le < 1:
-                print("No results were found. Please try again with a different search.")
+                print(
+                    "No results were found. Please try again with a different search."
+                )
                 Q(5)
 
             else:
                 print("\nFound " + str(le) + ' results for "' + query + '".')
                 for i in range(le):
                     print("Result " + str(i + 1) + ": " + results[i].title)
-                ans = input('Load more results for "' +
-                            query + '"? (y/n) ').lower()
+                ans = input('Load more results for "' + query + '"? (y/n) ').lower()
                 if "y" in ans:
                     s.get_next_results()
                 else:
                     l = False
         try:
             ans = (
-                int(input("Please type the number result you would like to download. ")) - 1)
+                int(input("Please type the number result you would like to download. "))
+                - 1
+            )
 
         except Exception as e:
             print("Invalid input:")
@@ -120,7 +131,8 @@ while rep:
             file_path = str(filedialog.askdirectory())
         else:
             file_path = input(
-                "Please manually enter a file path, or leave blank to use the code folder. ")
+                "Please manually enter a file path, or leave blank to use the code folder. "
+            )
 
         if file_path == "":
             ans = input(
